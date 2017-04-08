@@ -24,12 +24,13 @@ default: &default
 development:
   <<: *default
   database: api-app-rf_development
+  host: localhost
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-  username: postgres
+  username: pg_rails
 
   # The password associated with the postgres role (username).
   password: 1
@@ -58,6 +59,10 @@ development:
 test:
   <<: *default
   database: api-app-rf_test
+  host: localhost
+  port: 5433
+  username: pg_rails
+  password: 1
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
