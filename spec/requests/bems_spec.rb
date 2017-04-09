@@ -8,9 +8,12 @@ RSpec.describe 'Bems API', type: :request do
   let(:usuario_id) { usuario.id }
   let(:id) { bems.first.id }
 
+  # authorize request
+  let(:headers) { valid_headers }
+
   # Suíte de Testes GET /usuarios/:usuario_id/bems
   describe 'GET /usuarios/:usuario_id/bems' do
-    before { get "/usuarios/#{usuario_id}/bems" }
+    before { get "/usuarios/#{usuario_id}/bems", params: {}, headers: headers }
 
     context 'quando o usuário existe' do
       it 'retorna código de status 200' do
@@ -37,7 +40,7 @@ RSpec.describe 'Bems API', type: :request do
 
   # Suíte de Testes GET /usuarios/:usuario_id/bems/:id
   describe 'GET /usuarios/:usuario_id/bems/:id' do
-    before { get "/usuarios/#{usuario_id}/bems/#{id}" }
+    before { get "/usuarios/#{usuario_id}/bems/#{id}", params: {}, headers: headers }
 
     context 'quando o bem existe' do
       it 'retorna o código de status 200' do
@@ -64,10 +67,12 @@ RSpec.describe 'Bems API', type: :request do
 
   # Suíte de Testes POST /usuarios/:usuario_id/bems
   describe 'POST /usuarios/:usuario_id/bems' do
-    let(:valid_attributes) { { nome: 'Casa de Campo', tipo: 1, valor: 255788.22 } }
+    let(:valid_attributes) { { nome: 'Casa de Campo', tipo: 1, valor: 255788.22 }.to_json }
 
     context 'quando os atributos são válidos' do
-      before { post "/usuarios/#{usuario_id}/bems", params: valid_attributes }
+      before do
+        post "/usuarios/#{usuario_id}/bems", params: valid_attributes, headers: headers
+      end
 
       it 'retorna o código de status 201' do
         expect(response).to have_http_status(201)
@@ -75,7 +80,7 @@ RSpec.describe 'Bems API', type: :request do
     end
 
     context 'quando os atributos não são válidos' do
-      before { post "/usuarios/#{usuario_id}/bems", params: {} }
+      before { post "/usuarios/#{usuario_id}/bems", params: {}, headers: headers }
 
       it 'retorna o código de status 422' do
         expect(response).to have_http_status(422)
@@ -89,9 +94,11 @@ RSpec.describe 'Bems API', type: :request do
 
   # Suíte de Testes PUT /usuarios/:usuario_id/bems/:id
   describe 'PUT /usuarios/:usuario_id/bems/:id' do
-    let(:valid_attributes) { { nome: 'Pickup Ford', tipo: 2, valor: 98700.22 } }
+    let(:valid_attributes) { { nome: 'Pickup Ford', tipo: 2, valor: 98700.22 }.to_json }
 
-    before { put "/usuarios/#{usuario_id}/bems/#{id}", params: valid_attributes }
+    before do
+      put "/usuarios/#{usuario_id}/bems/#{id}", params: valid_attributes, headers: headers
+    end
 
     context 'quando um bem existe' do
       it 'retorna o código de status 204' do
@@ -119,7 +126,7 @@ RSpec.describe 'Bems API', type: :request do
 
   # Suíte de Testes DELETE /usuarios/:id
   describe 'DELETE /usuarios/:id' do
-    before { delete "/usuarios/#{usuario_id}/bems/#{id}" }
+    before { delete "/usuarios/#{usuario_id}/bems/#{id}", params: {}, headers: headers }
 
     it 'retorna o código de status 204' do
       expect(response).to have_http_status(204)

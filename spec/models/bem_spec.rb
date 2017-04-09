@@ -6,6 +6,7 @@ RSpec.describe Bem, type: :model do
       should belong_to(:usuario)
   end
   # Validation tests
+  # garantir que as colunas nome, tipo e valor existem antes de persistir
   describe "garantir que as colunas nome, tipo e valor existem antes de persistir" do
       it { should validate_presence_of(:nome) }
       it { should validate_presence_of(:tipo) }

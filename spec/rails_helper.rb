@@ -68,6 +68,8 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include RequestSpecHelper, type: :request
+  config.include RequestSpecHelper
+  config.include ControllerSpecHelper
 
   # add `FactoryGirl` methods
   config.include FactoryGirl::Syntax::Methods
