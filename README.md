@@ -6,7 +6,11 @@ Requerimentos:
 
 * Ruby version
 
-* System dependencies
+2.4.x
+
+* Rails
+
+5.0.x
 
 * Configuration
 
@@ -14,10 +18,8 @@ Requerimentos:
 
 * Database initialization
 
-* How to run the test suite
+`rails db:migrate`
 
-* Services (job queues, cache servers, search engines, etc.)
+* Para executar os testes com RSpec execute
 
-* Deployment instructions
-
-* ...
+`bundle exec rspec`

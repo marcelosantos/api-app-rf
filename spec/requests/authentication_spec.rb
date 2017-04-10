@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Authentication', type: :request do
-  # Authentication test suite
+  #Suíte de Teste Authentication
   describe 'POST /auth/login' do
     # create test user
     let!(:usuario) { create(:usuario) }
@@ -24,20 +24,19 @@ RSpec.describe 'Authentication', type: :request do
     # set request.headers to our custon headers
     # before { allow(request).to receive(:headers).and_return(headers) }
 
-    # returns auth token when request is valid
-    context 'When request is valid' do
+    context 'quando a requisição é válida' do
       before { post '/auth/login', params: valid_credentials, headers: headers }
 
-      it 'returns an authentication token' do
+      it 'retorna um token de autenticação e o usuário logado' do
         expect(json['auth_token']).not_to be_nil
+        expect(json['logado']).not_to be_nil
       end
     end
 
-    # returns failure message when request is invalid
-    context 'When request is invalid' do
+    context 'quando a requisição não é válida' do
       before { post '/auth/login', params: invalid_credentials, headers: headers }
 
-      it 'returns a failure message' do
+      it 'retorna uma mensagem de erro' do
         expect(json['message']).to match(Message.invalid_credentials)
       end
     end
